@@ -11,10 +11,17 @@ public class PlayerInput : MonoBehaviour
     {
         playerMovement = GetComponent<Movement>();
         if (playerMovement == null) {
-            Debug.LogError("Movement script not found on " + gameObject.name);
+            Debug.Log("Movement script not found on " + gameObject.name);
         }
+
+        // set speed
+        
     }
 
+
+    public void setPlayerSpeed(float newSpeed){
+        playerMovement.SetSpeed(newSpeed);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -36,5 +43,7 @@ public class PlayerInput : MonoBehaviour
         } else {
             playerMovement.Stop();
         }
+        // update player speed
+        // playerMovement.SetSpeed(float newSpeed);
     }
 }

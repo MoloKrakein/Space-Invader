@@ -27,7 +27,7 @@ public class Health : MonoBehaviour, IHealth
         return currentHealth;
     }
 
-    // set current health
+    // set current health to max health
     public void SetCurrentHealth(int health)
     {
         currentHealth = health;
