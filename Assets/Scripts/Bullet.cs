@@ -37,5 +37,14 @@ public class Bullet : MonoBehaviour
             Destroy(other.gameObject);
             Destroy(gameObject);
         }
+        Debug.Log("Bullet collided with " + other.gameObject.name);
+    }
+
+    private void OnCollisionEnter2D(Collision2D other) {
+        if (other.gameObject.CompareTag("Player")) {
+            Destroy(other.gameObject);
+            Destroy(gameObject);
+        }
+        Debug.Log("Bullet collided with " + other.gameObject.name);
     }
 }
