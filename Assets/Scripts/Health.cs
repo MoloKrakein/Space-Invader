@@ -21,4 +21,15 @@ public class Health : MonoBehaviour, IHealth
     {
         return currentHealth <= 0;
     }
+
+    public int GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    // set current health
+    public void SetCurrentHealth(int health)
+    {
+        currentHealth = health;
+    }
 }
