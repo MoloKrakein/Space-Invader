@@ -4,15 +4,43 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    // class movement
+    [SerializeField] float speed;
+    private Rigidbody2D rb;
+    float defaultSpeed = 5f;
+
+    private void Awake() {
+        rb = GetComponent<Rigidbody2D>();
+        //if speed is not set in inspector, set it to default speed
+        if (speed == 0) {
+            speed = defaultSpeed;
+        }
+
+        if (rb == null) {
+            Debug.LogError("Rigidbody2D not found on " + gameObject.name);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public void Left() {
+        rb.velocity = new Vector2(-speed, 0);
     }
+
+    public void Right() {
+        rb.velocity = new Vector2(speed, 0);
+    }
+
+    public void Up() {
+        rb.velocity = new Vector2(0, speed);
+    }
+
+    public void Down() {
+        rb.velocity = new Vector2(0, -speed);
+    }
+    
+    public void Stop() {
+        rb.velocity = Vector2.zero;
+    }
+
+
+
 }
