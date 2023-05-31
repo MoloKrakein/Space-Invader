@@ -11,6 +11,7 @@ public class playerMainScript : MonoBehaviour
     public GameObject bulletPrefab;
     private Rigidbody2D rb;
 
+    private bool isShooting = false;
     Health healthScript;
     PlayerInput playerInput; //movement script
 
@@ -54,7 +55,11 @@ public class playerMainScript : MonoBehaviour
             bulletScript.direction = Vector3.up;
         }
     }
-
+    // shoot delay function
+    IEnumerator ShootDelay() {
+        yield return new WaitForSeconds(0.5f);
+        isShooting = false;
+    }
     private void Update() {
         // set speed
         playerInput.setPlayerSpeed(speed);
@@ -62,9 +67,13 @@ public class playerMainScript : MonoBehaviour
         //     Destroy(gameObject);
         // }
 
-        // press space to shoot
+        // press space to shoot only half a second after last shot
         if (Input.GetKeyDown(KeyCode.Space)) {
-            Shoot();
+            if (!isShooting) {
+                Shoot();
+                isShooting = true;
+                StartCoroutine(ShootDelay());
+            }
         }
     }
 
