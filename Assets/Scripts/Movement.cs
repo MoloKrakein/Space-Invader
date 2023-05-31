@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Movement : MonoBehaviour
+public class Movement : MonoBehaviour, IMoveable
 {
     // class movement
     // private float speed;
     private Rigidbody2D rb;
-    float defaultSpeed = 5f;
+    // float defaultSpeed = 0.5f;
 
     private bool isMoving;
     private Vector3 originalPosition, targetPosition;
-    private float timeToMove;
+    private float timeToMove = 0.1f;
 
+    #region Old movement
     // private Vector3 moveDirection;
 
     // private void Awake() {
@@ -27,14 +28,15 @@ public class Movement : MonoBehaviour
     //         Debug.LogError("Rigidbody2D not found on " + gameObject.name);
     //     }
     // }
+    // public void SetSpeed(float newSpeed) {
+    //     // if newSpeed is not set in inspector, set it to default speed
 
-    public void SetSpeed(float newSpeed) {
-        // if newSpeed is not set in inspector, set it to default speed
-
-        timeToMove = newSpeed;
-        defaultSpeed = newSpeed;
+    //     timeToMove = newSpeed;
+    //     defaultSpeed = newSpeed;
         
-    }
+    // }
+#endregion
+    #region Old movement
 
     // public void Left() {
     //     rb.velocity = new Vector2(-speed, 0);
@@ -72,16 +74,16 @@ public class Movement : MonoBehaviour
     //     return rb.velocity;
     // }
 
+    #endregion
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         //if speed is not set in inspector, set it to default speed
         if (rb == null) {
             Debug.LogError("Rigidbody2D not found on " + gameObject.name);
         }
-        SetSpeed(defaultSpeed);
     }
 
-    public IEnumerator Move(Vector3 direction) {
+    public IEnumerator MoveScript(Vector3 direction) {
         // only move if not moving
         if (!isMoving) {
             isMoving = true;
@@ -99,34 +101,27 @@ public class Movement : MonoBehaviour
         }
     }
 
-    // public void Left() {
-    //     if (!isMoving) {
-    //         StartCoroutine(Move(Vector3.left));
-    //     }
-    // }
-    // public void Right() {
-    //     if (!isMoving) {
-    //         StartCoroutine(Move(Vector3.right));
-    //     }
-    // }
-    // public void Up() {
-    //     if (!isMoving) {
-    //         StartCoroutine(Move(Vector3.up));
-    //     }
-    // }
-    // public void Down() {
-    //     if (!isMoving) {
-    //         StartCoroutine(Move(Vector3.down));
-    //     }
-    // }
 
     public void Stop() {
         rb.velocity = Vector2.zero;
     }
 
-    // public void SetDirection(Vector3 direction) {
-    //     rb.velocity = direction * defaultSpeed;
-    // }
 
+    public Vector3 GetVelocity()
+    {
+        return rb.velocity;
+    }
 
+    public void Move(Vector3 direction)
+    {
+        StartCoroutine(MoveScript(direction));
+        Debug.Log("Hi im moving");
+        Debug.Log("Speed is " + timeToMove);
+    }
+
+    public void SetSpeed(float speed)
+    {
+        timeToMove = speed;
+
+    }
 }

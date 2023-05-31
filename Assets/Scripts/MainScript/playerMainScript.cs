@@ -13,69 +13,79 @@ public class playerMainScript : MonoBehaviour
 
     private bool isShooting = false;
     Health healthScript;
-    PlayerInput playerInput; //movement script
+    PlayerInput playerInput; // movement script
+    IMoveable movement; // reference to IMoveable interface
 
-    private void Awake() {
-        Health healthScript = GetComponent<Health>();
-        if (healthScript == null) {
+    private void Awake()
+    {
+        healthScript = GetComponent<Health>();
+        if (healthScript == null)
+        {
             Debug.LogError("Health script not found on " + gameObject.name);
         }
-            healthScript.SetCurrentHealth(health);
-        
-        
+        healthScript.SetCurrentHealth(health);
     }
-    private void Start() {
+
+    private void Start()
+    {
         // initialize health
         healthScript = GetComponent<Health>();
 
         // initialize movement
-        rb = GetComponent<Rigidbody2D>();
-        if (rb == null) {
-            Debug.LogError("Rigidbody2D not found on " + gameObject.name);
-        }
         playerInput = GetComponent<PlayerInput>();
-        if (playerInput == null) {
+        if (playerInput == null)
+        {
             Debug.LogError("PlayerInput script not found on " + gameObject.name);
         }
-
-        // set speed
-        playerInput.setPlayerSpeed(speed);
-        
+        else
+        {
+            movement = playerInput as IMoveable; // Cast PlayerInput to IMoveable
+            if (movement == null)
+            {
+                Debug.LogError("PlayerInput does not implement IMoveable interface on " + gameObject.name);
+            }
+            else
+            {
+                movement.SetSpeed(speed);
+            }
+        }
     }
 
-    private void Shoot() {
+    private void Shoot()
+    {
         // create bullet at player position + 1 unit up
         GameObject bullet = Instantiate(bulletPrefab, transform.position + Vector3.up, Quaternion.identity);
         // set bullet direction
-        // Bullet bulletScript = bullet.GetComponent<Bullet>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        if (bulletScript == null) {
+        if (bulletScript == null)
+        {
             Debug.LogError("Bullet script not found on " + bullet.name);
-        }else{
+        }
+        else
+        {
             bulletScript.direction = Vector3.up;
         }
     }
+
     // shoot delay function
-    IEnumerator ShootDelay() {
+    IEnumerator ShootDelay()
+    {
         yield return new WaitForSeconds(0.5f);
         isShooting = false;
     }
-    private void Update() {
-        // set speed
-        playerInput.setPlayerSpeed(speed);
-        // if(healthScript.IsDead()) {
-        //     Destroy(gameObject);
-        // }
 
+    private void Update()
+    {
+        
         // press space to shoot only half a second after last shot
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            if (!isShooting) {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!isShooting)
+            {
                 Shoot();
                 isShooting = true;
                 StartCoroutine(ShootDelay());
             }
         }
     }
-
-
 }

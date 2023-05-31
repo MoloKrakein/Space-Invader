@@ -2,49 +2,51 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour
+public class PlayerInput : MonoBehaviour, IMoveable
 {
-    private Movement playerMovement;
-
-    // Start is called before the first frame update
-    void Awake()
+    private IMoveable playerMovement;
+    private float speed;
+    
+    private void Awake()
     {
-        playerMovement = GetComponent<Movement>();
-        if (playerMovement == null) {
-            Debug.Log("Movement script not found on " + gameObject.name);
-        }
-
-        // set speed
-        
+        playerMovement = GetComponent<IMoveable>();
+    }
+    
+    public void SetPlayerMovement(IMoveable movement)
+    {
+        playerMovement = movement;
     }
 
-
-    public void setPlayerSpeed(float newSpeed){
-        playerMovement.SetSpeed(newSpeed);
-    }
-    // Update is called once per frame
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow)) {
-        //     // playerMovement.Up();
-        //     StartCoroutine(playerMovement.Move(Vector3.up));
-        // }
-            
-        if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)) {
-            // playerMovement.Left();
-            StartCoroutine(playerMovement.Move(Vector3.left));
-        }
+        // get input
+        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float verticalInput = Input.GetAxisRaw("Vertical");
 
-        // if (Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow)) {
-        //     // playerMovement.Down();
-        //     StartCoroutine(playerMovement.Move(Vector3.down));
-        // }
+        // move player
+        Vector3 direction = new Vector3(horizontalInput, verticalInput, 0);
+        playerMovement.Move(direction);
+    }
 
-        if (Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow)) {
-            // playerMovement.Right();
-            StartCoroutine(playerMovement.Move(Vector3.right));
-        }
-        // update player speed
-        // playerMovement.SetSpeed(float newSpeed);
+    public void Move(Vector3 direction)
+    {
+        // call movescript from movement
+        SetPlayerMovement(GetComponent<Movement>());
+
+    }
+
+    public void SetSpeed(float NewSpeed)
+    {
+        speed = NewSpeed;
+    }
+
+    public void SetVelocity(Vector3 velocity)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public void Stop()
+    {
+        throw new System.NotImplementedException();
     }
 }
