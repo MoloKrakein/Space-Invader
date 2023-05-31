@@ -25,23 +25,24 @@ public class PlayerInput : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //get player input using unity's new input system
+        // if (Input.GetKeyDown(KeyCode.W)||Input.GetKeyDown(KeyCode.UpArrow)) {
+        //     // playerMovement.Up();
+        //     StartCoroutine(playerMovement.Move(Vector3.up));
+        // }
+            
+        if (Input.GetKeyDown(KeyCode.A)||Input.GetKeyDown(KeyCode.LeftArrow)) {
+            // playerMovement.Left();
+            StartCoroutine(playerMovement.Move(Vector3.left));
+        }
 
-        //get horizontal input
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
-        //get vertical input
-        float verticalInput = Input.GetAxisRaw("Vertical");
+        // if (Input.GetKeyDown(KeyCode.S)||Input.GetKeyDown(KeyCode.DownArrow)) {
+        //     // playerMovement.Down();
+        //     StartCoroutine(playerMovement.Move(Vector3.down));
+        // }
 
-        if (horizontalInput > 0) {
-            playerMovement.Right();
-        } else if (horizontalInput < 0) {
-            playerMovement.Left();
-        } else if (verticalInput > 0) {
-            playerMovement.Up();
-        } else if (verticalInput < 0) {
-            playerMovement.Down();
-        } else {
-            playerMovement.Stop();
+        if (Input.GetKeyDown(KeyCode.D)||Input.GetKeyDown(KeyCode.RightArrow)) {
+            // playerMovement.Right();
+            StartCoroutine(playerMovement.Move(Vector3.right));
         }
         // update player speed
         // playerMovement.SetSpeed(float newSpeed);

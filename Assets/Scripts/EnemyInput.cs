@@ -22,25 +22,25 @@ public class EnemyInput : MonoBehaviour
         enemyMovement.SetSpeed(newSpeed);
     }
 
-    public void updateMovementDirection(int modifer){
-        movementDirection += modifer;
-        if (movementDirection > 0) {
-            enemyMovement.Right();
-        } else if (movementDirection < 0) {
-            enemyMovement.Left();
-        } else {
-            enemyMovement.Stop();
-        }
-    }
+    // public void updateMovementDirection(int modifer){
+    //     movementDirection += modifer;
+    //     if (movementDirection > 0) {
+    //         enemyMovement.Right();
+    //     } else if (movementDirection < 0) {
+    //         enemyMovement.Left();
+    //     } else {
+    //         enemyMovement.Stop();
+    //     }
+    // }
 
     private void RandomizeMovement(){
         // randomize movement, when enemy done moving, randomize again
-        int randomNum = Random.Range(0, 2);
-        if (randomNum == 0) {
-            updateMovementDirection(1);
-        } else {
-            updateMovementDirection(-1);
-        }
+        // int randomNum = Random.Range(0, 2);
+        // if (randomNum == 0) {
+        //     updateMovementDirection(1);
+        // } else {
+        //     updateMovementDirection(-1);
+        // }
     }
     
 

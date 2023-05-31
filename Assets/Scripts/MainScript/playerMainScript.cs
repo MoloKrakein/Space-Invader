@@ -43,8 +43,8 @@ public class playerMainScript : MonoBehaviour
     }
 
     private void Shoot() {
-        // create bullet
-        GameObject bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+        // create bullet at player position + 1 unit up
+        GameObject bullet = Instantiate(bulletPrefab, transform.position + Vector3.up, Quaternion.identity);
         // set bullet direction
         // Bullet bulletScript = bullet.GetComponent<Bullet>();
         Bullet bulletScript = bullet.GetComponent<Bullet>();
