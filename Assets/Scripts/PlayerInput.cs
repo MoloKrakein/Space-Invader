@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInput : MonoBehaviour, IMoveable
+public class PlayerInput : MonoBehaviour, IMoveable, IBoundsCheckable
 {
     private IMoveable playerMovement;
     private float speed;
+
     
     private void Awake()
     {
@@ -48,5 +49,11 @@ public class PlayerInput : MonoBehaviour, IMoveable
     public void Stop()
     {
         throw new System.NotImplementedException();
+    }
+
+    public void OnOutOfBounds()
+    {
+        // if player is out of bounds, stop player
+        playerMovement.Stop();
     }
 }

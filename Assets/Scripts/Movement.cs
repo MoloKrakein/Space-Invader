@@ -83,6 +83,8 @@ public class Movement : MonoBehaviour, IMoveable
         }
     }
 
+    // Check if wall is in the way
+
     public IEnumerator MoveScript(Vector3 direction) {
         // only move if not moving
         if (!isMoving) {

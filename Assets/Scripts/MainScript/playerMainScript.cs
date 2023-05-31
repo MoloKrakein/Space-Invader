@@ -8,6 +8,7 @@ public class playerMainScript : MonoBehaviour
     [SerializeField] float shootDelay;
     [SerializeField] int health;
     [SerializeField] int maxHealth;
+    
 
     public GameObject bulletPrefab;
     private Rigidbody2D rb;
@@ -25,6 +26,7 @@ public class playerMainScript : MonoBehaviour
             Debug.LogError("Health script not found on " + gameObject.name);
         }
         healthScript.SetCurrentHealth(health);
+
     }
 
     private void Start()
@@ -84,5 +86,6 @@ public class playerMainScript : MonoBehaviour
                 StartCoroutine(ShootDelay());
             }
         }
+        // wall detector
     }
 }
