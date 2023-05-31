@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class playerMainScript : MonoBehaviour
 {
-    [SerializeField] float speed;
+    // [SerializeField] float speed;
+    [SerializeField] float shootDelay;
     [SerializeField] int health;
     [SerializeField] int maxHealth;
 
@@ -44,10 +45,6 @@ public class playerMainScript : MonoBehaviour
             {
                 Debug.LogError("PlayerInput does not implement IMoveable interface on " + gameObject.name);
             }
-            else
-            {
-                movement.SetSpeed(speed);
-            }
         }
     }
 
@@ -70,7 +67,7 @@ public class playerMainScript : MonoBehaviour
     // shoot delay function
     IEnumerator ShootDelay()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(shootDelay);
         isShooting = false;
     }
 
